@@ -1,7 +1,7 @@
 import { db } from "../config/db";
 import Sequelize from "sequelize";
 
-export interface UserInterface extends Sequelize.Model<any,any> {
+export interface UserInterface extends Sequelize.Model {
   username: string;
   firstName: string;
   lastName: string;
