@@ -1,4 +1,4 @@
-import { dbController } from '../controllers/db';
+import { dbController } from '../controllers/dbController';
 import express from "express";
 
 export const dbRouter = express.Router();
