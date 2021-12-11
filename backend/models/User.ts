@@ -1,7 +1,17 @@
 import { db } from "../config/db";
 import Sequelize from "sequelize";
 
-export const User = db.define(
+export interface UserInterface extends Sequelize.Model<any,any> {
+  username: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  isActive: boolean;
+  isAdmin: boolean;
+}
+
+export const User: Sequelize.ModelCtor<UserInterface> = db.define(
   "user",
   {
     username: {
@@ -31,6 +41,10 @@ export const User = db.define(
       type: Sequelize.BOOLEAN,
       defaultValue: false,
     },
+    isAdmin: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: false
+    }
   },
   { timestamps: true }
 );
