@@ -2,7 +2,8 @@ import { Response } from "express";
 
 export const error500 = (res: Response, error: any) => {
   console.log(error);
-  return res.status(500).json({ message: "Something went wrong!", error });
+  res.statusCode = 500;
+  return res.json({ message: "Something went wrong!", error });
 };
 
 export const customErrorMessage = (
@@ -10,5 +11,6 @@ export const customErrorMessage = (
   status: number,
   error: string
 ) => {
-  return res.status(status).json({ error });
+  res.statusCode = status
+  return res.json({ error });
 };

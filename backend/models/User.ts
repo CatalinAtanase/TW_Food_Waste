@@ -2,6 +2,7 @@ import { db } from "../config/db";
 import Sequelize from "sequelize";
 
 export interface userAttributes {
+  id: number;
   username: string;
   email: string;
   password: string;
