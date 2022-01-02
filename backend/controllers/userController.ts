@@ -1,12 +1,13 @@
-import { error500, customErrorMessage } from "../utils/serverMessages";
-import { User, UserInterface } from "../models/User";
-import { Response, Request } from "express";
+import { Request, Response } from "express";
 import { Op } from "sequelize";
+import { Product } from "../models/Product";
+import { User } from "../models/User";
+import { customErrorMessage, error500 } from "../utils/serverMessages";
 
 export const userController = {
   getAll: async (req: Request, res: Response) => {
     try {
-      const users: UserInterface[] = await User.findAll();
+      const users = await User.findAll();
       return res.status(200).send(users);
     } catch (error) {
       return error500(res, error);
@@ -18,7 +19,7 @@ export const userController = {
       if (!id) {
         return res.sendStatus(400);
       }
-      const user = await User.findByPk(id);
+      const user = await User.findByPk(id, {include: [Product]});
       if (!user) {
         return res.sendStatus(404);
       }
@@ -86,7 +87,7 @@ export const userController = {
       user.username = username;
       user.firstName = firstName;
       user.lastName = lastName;
-      await user.save();
+      user = await user.save();
 
       return res.status(200).json({ message: "Info updated succesfully!", user });
     } catch (error) {

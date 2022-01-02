@@ -10,9 +10,9 @@ export const dbController = {
           message: "Database reset",
         });
       })
-      .catch(() => {
+      .catch((err) => {
         res.status(500).send({
-          message: "Database reset error",
+          message: err,
         });
       });
   },

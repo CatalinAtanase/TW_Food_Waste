@@ -11,6 +11,7 @@ export interface ProductAttributes {
   categoryId: number;
   userId: number;
   quantity: string;
+  claimedBy?: number;
 }
 
 export interface ProductInterface extends Sequelize.Model, ProductAttributes {}
@@ -33,11 +34,15 @@ export const Product: Sequelize.ModelCtor<ProductInterface> = db.define(
     quantity: {
       type: Sequelize.STRING,
       allowNull: false
+    },
+    claimedBy: {
+      type: Sequelize.INTEGER,
+      allowNull: true,
     }
   }
 );
 
-Category.hasOne(Product);
+Category.hasMany(Product);
 Product.belongsTo(Category);
-User.hasOne(Product);
+User.hasMany(Product);
 Product.belongsTo(User);
