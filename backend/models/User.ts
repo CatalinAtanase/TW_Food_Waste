@@ -1,15 +1,18 @@
 import { db } from "../config/db";
 import Sequelize from "sequelize";
 
-export interface UserInterface extends Sequelize.Model {
+export interface UserAttributes {
+  id: number;
   username: string;
-  firstName: string;
-  lastName: string;
   email: string;
   password: string;
   isActive: boolean;
   isAdmin: boolean;
+  firstName?: string;
+  lastName?: string;
 }
+
+export interface UserInterface extends Sequelize.Model, UserAttributes {}
 
 export const User: Sequelize.ModelCtor<UserInterface> = db.define(
   "user",
@@ -18,12 +21,6 @@ export const User: Sequelize.ModelCtor<UserInterface> = db.define(
       type: Sequelize.STRING,
       unique: true,
       allowNull: false,
-    },
-    firstName: {
-      type: Sequelize.STRING,
-    },
-    lastName: {
-      type: Sequelize.STRING,
     },
     email: {
       type: Sequelize.STRING,
@@ -43,8 +40,14 @@ export const User: Sequelize.ModelCtor<UserInterface> = db.define(
     },
     isAdmin: {
       type: Sequelize.BOOLEAN,
-      defaultValue: false
-    }
+      defaultValue: false,
+    },
+    firstName: {
+      type: Sequelize.STRING,
+    },
+    lastName: {
+      type: Sequelize.STRING,
+    },
   },
   { timestamps: true }
 );
