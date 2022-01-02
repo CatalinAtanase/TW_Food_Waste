@@ -4,7 +4,7 @@ import { Response, Request } from "express";
 export const dbController = {
   reset: (req: Request, res: Response) => {
     db
-      .sync({ force: true })
+      .sync({ alter: true })
       .then(() => {
         res.status(201).send({
           message: "Database reset",
