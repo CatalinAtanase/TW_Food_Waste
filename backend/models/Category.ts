@@ -1,6 +1,5 @@
-import { Product } from './Product';
-import { db } from "../config/db";
 import Sequelize from "sequelize";
+import { db } from "../config/db";
 
 export enum CATEGORIES {
   MEAT = "MEAT",
